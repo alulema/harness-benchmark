@@ -1,0 +1,10 @@
+runId,benchmark,model,mode,maxK,baseScore,finalScore,improvementDelta,costUsd,latencyMs,convergedAtIteration,adopted_systemPrompt,adopted_memory,adopted_toolGuidance,scoreHistory
+lab-gemini-parallel-01,LAB,gemini-2.0-flash,parallel,4,0.61,0.72,0.11,0.018,64000,3,0.72,0.48,0.81,"[0.61, 0.67, 0.7, 0.72, 0.72]"
+lab-claude-sequential-01,LAB,claude-3-5-sonnet,sequential,4,0.68,0.77,0.09,0.043,91000,2,0.65,0.52,0.73,"[0.68, 0.74, 0.77, 0.77, 0.77]"
+lab-gemini-sequential-02,LAB,gemini-1.5-pro,sequential,3,0.58,0.64,0.06,0.028,110000,3,0.54,0.36,0.62,"[0.58, 0.61, 0.64, 0.64]"
+jobbench-gemini-parallel-01,JobBench,gemini-2.0-flash,parallel,4,0.55,0.65,0.1,0.022,73000,3,0.59,0.63,0.77,"[0.55, 0.6, 0.63, 0.65, 0.65]"
+jobbench-claude-parallel-01,JobBench,claude-3-5-sonnet,parallel,4,0.63,0.73,0.1,0.052,84000,2,0.7,0.69,0.71,"[0.63, 0.69, 0.73, 0.73, 0.73]"
+jobbench-gemini-sequential-01,JobBench,gemini-1.5-pro,sequential,3,0.5,0.56,0.06,0.031,112000,3,0.48,0.51,0.57,"[0.5, 0.53, 0.56, 0.56]"
+workbuddy-gemini-parallel-01,WorkBuddy,gemini-2.0-flash,parallel,4,0.72,0.82,0.1,0.026,51000,2,0.67,0.43,0.84,"[0.72, 0.78, 0.82, 0.82, 0.82]"
+workbuddy-claude-sequential-01,WorkBuddy,claude-3-5-sonnet,sequential,4,0.75,0.85,0.1,0.061,78000,2,0.76,0.56,0.79,"[0.75, 0.81, 0.85, 0.85, 0.85]"
+workbuddy-gemini-sequential-01,WorkBuddy,gemini-1.5-pro,sequential,3,0.67,0.73,0.06,0.039,105000,3,0.58,0.4,0.66,"[0.67, 0.7, 0.73, 0.73]"
