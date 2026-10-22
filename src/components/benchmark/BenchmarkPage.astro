@@ -1,0 +1,69 @@
+---
+import BenchmarkDashboard from './BenchmarkDashboard';
+import '../../styles/global.css';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#09090d" />
+    <meta name="description" content="Explore Harness² benchmark results across models, execution modes, and optimization budgets." />
+    <title>Harness² Benchmark — Agent Optimization Analysis</title>
+    <link rel="stylesheet" href="https://alexisalulema.com/demo-theme.css" />
+    <script is:inline>
+      window.DEMO_INFO = {
+        title: "Harness² Benchmark Analysis",
+        titleEs: "Análisis de benchmarks Harness²",
+        overview: "An interactive dashboard for comparing agent performance before and after Harness² optimization across LAB, JobBench, and WorkBuddy. Filter by model, execution mode, and iteration budget; inspect convergence and component adoption; export filtered run data.",
+        overviewEs: "Un dashboard interactivo para comparar el rendimiento de agentes antes y después de la optimización Harness² en LAB, JobBench y WorkBuddy. Filtra por modelo, modo de ejecución y presupuesto de iteraciones; explora convergencia y adopción de componentes; exporta los datos.",
+        architecture: {
+          description: "The Python parser validates Harness² JSON run logs and generates static JSON/CSV artifacts. Astro serves a React dashboard that reads those files directly; no database or model API is required at runtime.",
+          descriptionEs: "El parser de Python valida los logs JSON de Harness² y genera artefactos estáticos JSON/CSV. Astro sirve un dashboard React que lee esos archivos directamente; no requiere base de datos ni API de modelos en tiempo de ejecución.",
+          diagram: `flowchart LR
+  RUNS["Harness² JSON runs"] --> PARSER["Python parser<br/>Pydantic + Pandas"]
+  PARSER --> JSON["Static JSON + CSV"]
+  JSON --> UI["Astro + React dashboard"]
+  UI --> CHARTS["Filters · charts · exports"]
+  GHCR["Public GHCR image"] --> ACA["Ephemeral Container Apps"]
+  ACA --> UI`
+        },
+        infra: [
+          { name: "Astro + React", role: "Static dashboard UI with interactive filtering and visualizations.", roleEs: "Interfaz estática con filtros interactivos y visualizaciones." },
+          { name: "Python parser", role: "Validates run summaries and emits JSON and CSV artifacts.", roleEs: "Valida resúmenes de ejecución y genera artefactos JSON y CSV." },
+          { name: "Nginx", role: "Serves the static site on internal ingress at port 8080.", roleEs: "Sirve el sitio estático en ingress interno, puerto 8080." },
+          { name: "GHCR", role: "Public container image consumed by the ephemeral demo infrastructure.", roleEs: "Imagen pública de contenedor consumida por la infraestructura efímera." }
+        ],
+        sizing: "One stateless container serving precomputed static data. No external service, runtime secret, or persistent storage is required.",
+        sizingEs: "Un contenedor sin estado sirve datos estáticos precalculados. No requiere servicios externos, secretos en runtime ni almacenamiento persistente.",
+        design: [
+          "Run data is validated and generated before the frontend build; dashboard requests never invoke an LLM.",
+          "Measured data replaces the bundled illustrative preview when parser output is generated.",
+          "CSV export works for the full dataset and for the currently filtered run table."
+        ],
+        designEs: [
+          "Los datos se validan y generan antes del build; el dashboard no invoca modelos de lenguaje.",
+          "Los resultados medidos reemplazan los datos ilustrativos incluidos cuando se ejecuta el parser.",
+          "La exportación CSV admite el conjunto completo y la tabla filtrada actual."
+        ],
+        limitations: [
+          "The bundled dashboard values are clearly marked illustrative until real run logs are provided.",
+          "The parser requires benchmark, model, execution mode, baseline/final scores, and component adoption rates in each run record.",
+          "The demo is read-only and does not execute the Harness² optimizer."
+        ],
+        limitationsEs: [
+          "Los valores incluidos están marcados como ilustrativos hasta que se proporcionen logs reales.",
+          "El parser requiere benchmark, modelo, modo, puntuaciones base/final y tasas de adopción por componente.",
+          "La demo es de solo lectura y no ejecuta el optimizador Harness²."
+        ],
+        links: { repo: "https://github.com/alulema/harness-benchmark" },
+        lang: "auto"
+      };
+    </script>
+    <script is:inline src="https://alexisalulema.com/demo-panel.js" defer></script>
+  </head>
+  <body>
+    <BenchmarkDashboard client:load />
+  </body>
+</html>
