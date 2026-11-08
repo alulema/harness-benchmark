@@ -9,7 +9,10 @@ Integra el demo **Harness² Benchmark Analysis** de `alulema/harness-benchmark` 
 ## Datos confirmados del demo
 
 - Repositorio: `https://github.com/alulema/harness-benchmark`
-- Imagen prevista: `ghcr.io/alulema/harness-benchmark:latest`
+- Imagen publicada en GHCR (pública, sin autenticación):
+  - `ghcr.io/alulema/harness-benchmark:latest`
+  - Etiqueta inmutable recomendada: `ghcr.io/alulema/harness-benchmark:c42f567aed9487b1d1d6466df87721118813742c`
+  - Digest del índice `latest` verificado: `sha256:c7fdd24cc7f17173aef1115c38ffc78e135c247726acb91a902b1b334997e4df`
 - Puerto HTTP del contenedor: **8080**, escuchando en `0.0.0.0`
 - La aplicación se sirve desde `/`, sin prefijo requerido.
 - También existe la ruta local `/projects/harness2-benchmark/`; la integración pública debe usar la raíz del demo.
@@ -21,14 +24,13 @@ Integra el demo **Harness² Benchmark Analysis** de `alulema/harness-benchmark` 
 
 ## Importante sobre publicación de la imagen
 
-La imagen se ha construido y probado localmente, pero **no está publicada en GHCR todavía**. El repositorio del demo incluye `.github/workflows/publish-image.yml`, que publica `latest` y una etiqueta con el SHA del commit al hacer push a `main` o a un tag `v*` (también admite ejecución manual).
+La imagen **ya está publicada en GHCR**: el PR #2 se integró en `main` (commit `c42f567`) y el workflow `.github/workflows/publish-image.yml` publicó `latest` y la etiqueta con el SHA completo del commit. Ese workflow se vuelve a ejecutar con cada push a `main`, tag `v*` o ejecución manual.
 
 Antes de activar el registro o aprovisionamiento:
 
-1. Comprueba que `ghcr.io/alulema/harness-benchmark:latest` exista y se pueda descargar sin autenticación.
-2. Si todavía no existe, deja clara esa dependencia y no supongas que el workflow ya se ejecutó: la imagen debe publicarse desde el repositorio del demo después de integrar sus cambios en `main` o ejecutar el workflow.
-3. Comprueba que el paquete de GHCR tenga visibilidad **Public**, tal como exige el contrato de la infraestructura.
-4. Para despliegues reproducibles, prefiere la etiqueta con SHA o un digest en lugar de `:latest`, si la plantilla lo permite.
+1. Comprueba que la imagen se pueda descargar sin autenticación (p. ej. `docker manifest inspect ghcr.io/alulema/harness-benchmark:c42f567aed9487b1d1d6466df87721118813742c`).
+2. Si la descarga anónima falla, comprueba que el paquete de GHCR tenga visibilidad **Public**, tal como exige el contrato de la infraestructura, y documenta el bloqueo.
+3. Para despliegues reproducibles, usa la etiqueta con SHA indicada arriba (o el digest) en lugar de `:latest`, si la plantilla lo permite.
 
 No construyas una imagen alternativa dentro de `personal-website` ni cambies el nombre del repositorio/tag esperado sin coordinarlo con el repositorio del demo.
 
@@ -36,7 +38,7 @@ No construyas una imagen alternativa dentro de `personal-website` ni cambies el 
 
 1. Lee el contrato completo de demos y la configuración actual del sitio. Identifica el mecanismo canónico para registrar un demo efímero y úsalo; no inventes un formato o una ruta paralela.
 2. Registra un demo con el nombre visible **Harness² Benchmark Analysis** y el slug/ID `harness-benchmark`, salvo que las convenciones actuales del sitio requieran una transformación distinta. Si ese identificador ya está ocupado, detente y documenta el conflicto en lugar de sobrescribirlo.
-3. Configura la imagen `ghcr.io/alulema/harness-benchmark:latest`, el puerto de destino `8080` y la ruta raíz `/`, respetando los valores predeterminados y requisitos de health check que use el sitio.
+3. Configura la imagen `ghcr.io/alulema/harness-benchmark:c42f567aed9487b1d1d6466df87721118813742c` (o `:latest` si la plantilla no admite etiquetas fijas), el puerto de destino `8080` y la ruta raíz `/`, respetando los valores predeterminados y requisitos de health check que use el sitio.
 4. No declares secretos: el dashboard es estático y no consume ninguno. Mantén la autenticación en el gateway; no añadas login, JWT ni TLS dentro del contenedor.
 5. Añade la tarjeta/enlace o entrada de navegación que corresponda en `personal-website`, siguiendo la presentación existente de los demos y apuntando al slug asignado por la infraestructura.
 6. Revisa y ejecuta las validaciones apropiadas del repositorio del sitio. Si la infraestructura requiere publicar la imagen antes de desplegar, señala ese bloqueo en el resultado y no simules un aprovisionamiento exitoso.
@@ -46,7 +48,7 @@ No construyas una imagen alternativa dentro de `personal-website` ni cambies el 
 - El demo está registrado siguiendo el patrón existente, con la imagen, puerto y raíz correctos.
 - La entrada pública dirige al demo a través del gateway efímero (sin URL local ni prefijo de aplicación).
 - No se agregaron autenticación, secretos ni persistencia innecesarios.
-- El paquete de la imagen es público y la etiqueta configurada está disponible, o se documenta explícitamente como bloqueo pendiente.
+- La imagen es pública y la etiqueta configurada está disponible.
 - El dashboard muestra su aviso de datos ilustrativos.
 - Las comprobaciones del sitio pasan y el handoff final indica los archivos cambiados y cualquier paso externo pendiente.
 
