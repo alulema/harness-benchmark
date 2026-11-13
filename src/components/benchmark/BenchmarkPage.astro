@@ -9,20 +9,22 @@ import '../../styles/global.css';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#09090d" />
-    <meta name="description" content="Explore Harness² benchmark results across models, execution modes, and optimization budgets." />
+    <meta name="description" content="Explore a recorded playground experiment and illustrative Harness² benchmark visualizations." />
     <title>Harness² Benchmark — Agent Optimization Analysis</title>
     <link rel="stylesheet" href="https://alexisalulema.com/demo-theme.css" />
     <script is:inline>
       window.DEMO_INFO = {
         title: "Harness² Benchmark Analysis",
         titleEs: "Análisis de benchmarks Harness²",
-        overview: "An interactive dashboard for comparing agent performance before and after Harness² optimization across LAB, JobBench, and WorkBuddy. Filter by model, execution mode, and iteration budget; inspect convergence and component adoption; export filtered run data.",
-        overviewEs: "Un dashboard interactivo para comparar el rendimiento de agentes antes y después de la optimización Harness² en LAB, JobBench y WorkBuddy. Filtra por modelo, modo de ejecución y presupuesto de iteraciones; explora convergencia y adopción de componentes; exporta los datos.",
+        overview: "Explore a recorded educational playground experiment and a separate illustrative benchmark dashboard. The playground is inspired by Harness²; it is not Google's official framework.",
+        overviewEs: "Explora un experimento educativo registrado en playground y un dashboard ilustrativo separado. Playground está inspirado en Harness², pero no es el framework oficial de Google.",
         architecture: {
-          description: "The Python parser validates Harness² JSON run logs and generates static JSON/CSV artifacts. Astro serves a React dashboard that reads those files directly; no database or model API is required at runtime.",
-          descriptionEs: "El parser de Python valida los logs JSON de Harness² y genera artefactos estáticos JSON/CSV. Astro sirve un dashboard React que lee esos archivos directamente; no requiere base de datos ni API de modelos en tiempo de ejecución.",
+          description: "A pinned playground study is normalized into static data. A separate parser accepts normalized benchmark summaries, not native Harness² artifacts. Astro serves both views without a database or model API.",
+          descriptionEs: "Un estudio fijado de playground se normaliza en datos estáticos. Un parser separado acepta resúmenes normalizados, no artefactos nativos de Harness². Astro sirve ambas vistas sin base de datos ni API de modelos.",
           diagram: `flowchart LR
-  RUNS["Harness² JSON runs"] --> PARSER["Python parser<br/>Pydantic + Pandas"]
+  RUNS["Normalized benchmark summaries"] --> PARSER["Python parser<br/>Pydantic + Pandas"]
+  STUDY["Pinned playground records"] --> IMPORT["Study adapter"]
+  IMPORT --> UI
   PARSER --> JSON["Static JSON + CSV"]
   JSON --> UI["Astro + React dashboard"]
   UI --> CHARTS["Filters · charts · exports"]
@@ -48,13 +50,13 @@ import '../../styles/global.css';
           "La exportación CSV admite el conjunto completo y la tabla filtrada actual."
         ],
         limitations: [
-          "The bundled dashboard values are clearly marked illustrative until real run logs are provided.",
-          "The parser requires benchmark, model, execution mode, baseline/final scores, and component adoption rates in each run record.",
+          "The playground study is exploratory and qualitative human review is pending.",
+          "The separate benchmark preview uses illustrative values; its parser does not accept native Harness² artifact trees.",
           "The demo is read-only and does not execute the Harness² optimizer."
         ],
         limitationsEs: [
-          "Los valores incluidos están marcados como ilustrativos hasta que se proporcionen logs reales.",
-          "El parser requiere benchmark, modelo, modo, puntuaciones base/final y tasas de adopción por componente.",
+          "El estudio de playground es exploratorio y la revisión cualitativa humana está pendiente.",
+          "La vista de benchmark es ilustrativa; su parser no acepta árboles de artefactos nativos de Harness².",
           "La demo es de solo lectura y no ejecuta el optimizador Harness²."
         ],
         links: { repo: "https://github.com/alulema/harness-benchmark" },

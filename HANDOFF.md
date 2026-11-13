@@ -21,6 +21,12 @@ Integra el demo **Harness² Benchmark Analysis** de `alulema/harness-benchmark` 
 - `PROJECT_ID` y `DEMO_SLOT` pueden estar presentes, pero el demo no necesita leerlos para funcionar.
 - El HTML ya carga `https://alexisalulema.com/demo-theme.css`, define `window.DEMO_INFO` en inglés y español, y carga `https://alexisalulema.com/demo-panel.js`.
 - El dashboard contiene nueve ejecuciones de **datos ilustrativos**, identificadas claramente como tales; no presentarlas como resultados medidos.
+- El código actual también incluye un caso de estudio separado con resultados
+  registrados de `harness-playground`, una implementación educativa inspirada
+  en Harness². La revisión humana cualitativa está pendiente; no son resultados
+  del framework oficial. **La etiqueta fija `c42f567...` corresponde a una
+  versión anterior y no incluye esta vista**; se necesita publicar y fijar una
+  imagen nueva antes de integrarla.
 
 ## Importante sobre publicación de la imagen
 

@@ -8,6 +8,7 @@ import ExecutionMetricsChart from './ExecutionMetricsChart';
 import FilterToolbar from './FilterToolbar';
 import KpiSummaryCards from './KpiSummaryCards';
 import ModelComparisonChart from './ModelComparisonChart';
+import PlaygroundStudy from './PlaygroundStudy';
 import RunDetailsTable from './RunDetailsTable';
 
 const initialFilters: BenchmarkFilters = { benchmark: 'all', mode: 'all', model: 'all', maxK: 'all' };
@@ -15,6 +16,7 @@ const initialFilters: BenchmarkFilters = { benchmark: 'all', mode: 'all', model:
 export default function BenchmarkDashboard() {
   const [data, setData] = useState<BenchmarkAggregateData>(exampleData as BenchmarkAggregateData);
   const [loadError, setLoadError] = useState('');
+  const [view, setView] = useState<'study' | 'illustrative'>('study');
 
   useEffect(() => {
     let active = true;
@@ -53,6 +55,11 @@ export default function BenchmarkDashboard() {
         </div>
       </header>
 
+      <nav className="mb-7 flex flex-wrap gap-2" aria-label="Dashboard views">
+        <button className={view === 'study' ? 'button-primary' : 'button-secondary'} type="button" aria-pressed={view === 'study'} onClick={() => setView('study')}>Playground case study</button>
+        <button className={view === 'illustrative' ? 'button-primary' : 'button-secondary'} type="button" aria-pressed={view === 'illustrative'} onClick={() => setView('illustrative')}>Benchmark dashboard{data.dataSource === 'illustrative' ? ' · illustrative' : ''}</button>
+      </nav>
+      {view === 'study' ? <PlaygroundStudy /> : <>
       <section className="mb-7 flex flex-col justify-between gap-5 lg:flex-row lg:items-end">
         <div className="max-w-3xl">
           <span className="badge mb-4"><Sparkles size={12} />Evaluation insights</span>
@@ -83,8 +90,9 @@ export default function BenchmarkDashboard() {
         <ExecutionMetricsChart runs={runs} />
       </section>
       <RunDetailsTable runs={runs} />
+      </>}
       <footer className="muted mt-8 flex flex-col items-center justify-between gap-3 border-t border-[var(--demo-border)] pt-5 text-[10px] sm:flex-row">
-        <p>{data.totalRuns} total runs · Updated {new Date(data.generatedAt).toISOString().slice(0, 10)}</p>
+        <p>{view === 'study' ? 'Playground case study · recorded experiment' : `${data.totalRuns} total runs · Updated ${new Date(data.generatedAt).toISOString().slice(0, 10)}`}</p>
         <a className="transition hover:text-[var(--color-text,#fff)]" href="https://github.com/alulema/harness-benchmark/blob/main/docs/HARNESS2_BENCHMARK_DASHBOARD_SPEC.md" target="_blank" rel="noreferrer">Dashboard methodology <ArrowUpRight className="inline" size={11} /></a>
       </footer>
     </main>
