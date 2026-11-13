@@ -11,8 +11,8 @@ Integra el demo **Harness² Benchmark Analysis** de `alulema/harness-benchmark` 
 - Repositorio: `https://github.com/alulema/harness-benchmark`
 - Imagen publicada en GHCR (pública, sin autenticación):
   - `ghcr.io/alulema/harness-benchmark:latest`
-  - Etiqueta inmutable recomendada: `ghcr.io/alulema/harness-benchmark:c42f567aed9487b1d1d6466df87721118813742c`
-  - Digest del índice `latest` verificado: `sha256:c7fdd24cc7f17173aef1115c38ffc78e135c247726acb91a902b1b334997e4df`
+  - Etiqueta inmutable recomendada: `ghcr.io/alulema/harness-benchmark:800dd9b790a2318f8740a808bcd1a957030a41c3`
+  - Digest del índice `latest` verificado: `sha256:2053b68325a0f2248b46ee7cd5262aa61417f73ad3caccd798e4bd6dfc5dbeab`
 - Puerto HTTP del contenedor: **8080**, escuchando en `0.0.0.0`
 - La aplicación se sirve desde `/`, sin prefijo requerido.
 - También existe la ruta local `/projects/harness2-benchmark/`; la integración pública debe usar la raíz del demo.
@@ -24,9 +24,7 @@ Integra el demo **Harness² Benchmark Analysis** de `alulema/harness-benchmark` 
 - El código actual también incluye un caso de estudio separado con resultados
   registrados de `harness-playground`, una implementación educativa inspirada
   en Harness². La revisión humana cualitativa está pendiente; no son resultados
-  del framework oficial. **La etiqueta fija `c42f567...` corresponde a una
-  versión anterior y no incluye esta vista**; se necesita publicar y fijar una
-  imagen nueva antes de integrarla.
+  del framework oficial. La etiqueta fija `800dd9b...` ya incluye esta vista.
 
 ## Importante sobre publicación de la imagen
 
@@ -44,7 +42,7 @@ No construyas una imagen alternativa dentro de `personal-website` ni cambies el 
 
 1. Lee el contrato completo de demos y la configuración actual del sitio. Identifica el mecanismo canónico para registrar un demo efímero y úsalo; no inventes un formato o una ruta paralela.
 2. Registra un demo con el nombre visible **Harness² Benchmark Analysis** y el slug/ID `harness-benchmark`, salvo que las convenciones actuales del sitio requieran una transformación distinta. Si ese identificador ya está ocupado, detente y documenta el conflicto en lugar de sobrescribirlo.
-3. Configura la imagen `ghcr.io/alulema/harness-benchmark:c42f567aed9487b1d1d6466df87721118813742c` (o `:latest` si la plantilla no admite etiquetas fijas), el puerto de destino `8080` y la ruta raíz `/`, respetando los valores predeterminados y requisitos de health check que use el sitio.
+3. Configura la imagen `ghcr.io/alulema/harness-benchmark:800dd9b790a2318f8740a808bcd1a957030a41c3` (o `:latest` si la plantilla no admite etiquetas fijas), el puerto de destino `8080` y la ruta raíz `/`, respetando los valores predeterminados y requisitos de health check que use el sitio.
 4. No declares secretos: el dashboard es estático y no consume ninguno. Mantén la autenticación en el gateway; no añadas login, JWT ni TLS dentro del contenedor.
 5. Añade la tarjeta/enlace o entrada de navegación que corresponda en `personal-website`, siguiendo la presentación existente de los demos y apuntando al slug asignado por la infraestructura.
 6. Revisa y ejecuta las validaciones apropiadas del repositorio del sitio. Si la infraestructura requiere publicar la imagen antes de desplegar, señala ese bloqueo en el resultado y no simules un aprovisionamiento exitoso.
