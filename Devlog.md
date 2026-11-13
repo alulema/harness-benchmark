@@ -304,3 +304,33 @@ Referencias consultadas:
 - [Diseño experimental, costo y riesgo de fuga de rúbricas](https://github.com/google-research/harness2/blob/main/docs/EXPERIMENTS.md)
 - [Azure OpenAI v1 / Responses API](https://learn.microsoft.com/en-us/azure/foundry/openai/api-version-lifecycle?view=foundry-classic)
 - [OpenCode providers](https://opencode.ai/docs/providers/)
+
+## Análisis de resultados existentes de playground (2026-11-08)
+
+Después de los intentos sin resultado útil en la NUC, se revisó
+`alulema/harness-playground` antes de proponer otra ejecución. El playground ya
+ejecuta localmente una implementación educativa inspirada en Harness² y
+conserva experimentos; repetir desde cero una comparación básica con Ollama
+habría duplicado trabajo. No se dispone aquí de los logs del intento en la NUC,
+por lo que no se atribuye una causa concreta a su fallo.
+
+El dashboard se amplió con una vista independiente del estudio exploratorio
+`agi-futures-v2`, a partir de sus archivos públicos fijados al commit
+`cad3f18a7092779c778127bde8c4264da8267a8d`. No se ejecutó ningún modelo ni
+se modificó el repositorio de playground. El adaptador verifica los hashes y
+las referencias entre los archivos; conserva 24 pares Qwen, 8 tareas y el
+fallo de desarrollo de Gemma. Los resultados incluyen 48 streams completados,
+lo que no implica que todas las respuestas estén completas.
+
+Se reproducen como **inspección manual documentada en el estudio original**
+los controles aritméticos: 4/6 correctos para el caso base y 2/6 para el
+candidato. No son resultados calculados de nuevo por el dashboard, ni miden
+las preguntas cualitativas. La revisión humana cualitativa seguía pendiente en
+la revisión fijada. La interfaz separa estos hechos del benchmark ilustrativo,
+advierte que la vista de respuestas no es ciega y no copia el paquete de
+revisión ni su clave. El repositorio de origen no declaraba licencia al
+consultarlo; acceso público no equivale a permiso general de reutilización.
+
+Esto permite contar cómo interpretar una evaluación y sus limitaciones; no
+demuestra que Harness² oficial haya mejorado un modelo. No se volvió a
+desplegar la imagen GHCR al desarrollar esta vista.
